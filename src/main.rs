@@ -104,8 +104,6 @@ fn run_lisp(query: &str) -> HashMap<String, LispType> {
                 i -= 1;
             }
             ')' => {
-                println!("{:?}", operand_stack);
-                println!("{:?}", operator_stack);
                 if let Some(operator) = operator_stack.pop() {
                     match operator {
                         LispType::Char(op) => {
@@ -146,7 +144,8 @@ fn main() {
     run_lisp(
         "
         (setq x 3)
-        (put (+ 1 x))
+        (setq var 1)
+        (put (+ var x))
         ",
     );
 }
