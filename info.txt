@@ -1,0 +1,12 @@
+Numeric Functions	Meaning
+(+ x1 x2 ... xn) 	The sum of x1, x2, ..., xn
+(* x1 x2 ... xn) 	The product of x1, x2, ..., xn
+(- x y) 	Subtract y from x
+(/ x y) 	Divide x by y
+(rem x y) 	The remainder of dividing x by y
+(abs x) 	The absolute value of x
+(max x1 x2 ... xn) 	The maximum of x1, x2, ..., xn
+(min x1 x2 ... xn) 	The minimum of x1, x2, ..., xn
+
+
+(write (exp)) Print the value of exp to the console
