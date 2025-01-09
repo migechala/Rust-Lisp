@@ -39,16 +39,16 @@ fn run_lisp(query: &str) -> HashMap<String, LispType> {
     let mut function_registry: HashMap<String, fn(&mut Stack, &mut HashMap<String, LispType>)> =
         HashMap::new();
 
-    function_registry.insert("put".to_string(), |stack, scope| {
-        if let Some(LispType::String(var)) = stack.pop() {
+    function_registry.insert("put".to_string(), |stack, scope| match stack.pop() {
+        Some(LispType::Number(num)) => println!("{}", num),
+        Some(LispType::String(var)) => {
             if let Some(value) = scope.get(&var) {
                 println!("{} = {:?}", var, value);
             } else {
                 panic!("'{}' not found in scope", var);
             }
-        } else {
-            panic!("No variable name for 'put'");
         }
+        _ => panic!("No variable name for 'put'"),
     });
 
     function_registry.insert("setq".to_string(), |stack, scope| {
@@ -67,7 +67,6 @@ fn run_lisp(query: &str) -> HashMap<String, LispType> {
     let mut i = 0;
 
     while i < chars.len() {
-        println!("{}", chars[i]);
         match chars[i] {
             '+' => operator_stack.push(LispType::Char('+')),
             '-' => operator_stack.push(LispType::Char('-')),
@@ -140,8 +139,6 @@ fn run_lisp(query: &str) -> HashMap<String, LispType> {
         }
         i += 1;
     }
-
-    println!("Final scope: {:?}", scope);
     scope
 }
 
@@ -149,7 +146,7 @@ fn main() {
     run_lisp(
         "
         (setq x 3)
-        (put x)
+        (put (+ 1 x))
         ",
     );
 }
